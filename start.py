@@ -4,14 +4,14 @@ from Utils.utils import get_config_data
 from config.config_classes import StartConfig
 
 from Preprocessing.preprocessing import start_preprocessing
-from Clusterization.clusterization import start_clusterization
-from Classification.classification import start_classification
+from Training.Clusterization.clusterization import start_clusterization
+from Training.Classification.classification import start_classification
 
 
 if __name__ == "__main__":
     modes = {"preprocessing": start_preprocessing,
              "classification": start_classification,
-             "clusterisation": start_clusterization}
+             "clusterization": start_clusterization}
 
     start_cfg_path = os.path.join(os.environ["CFG_PATH"], os.environ["CFG_START_NAME"])
     mode = StartConfig(**get_config_data(start_cfg_path)).mode

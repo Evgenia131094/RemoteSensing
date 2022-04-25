@@ -19,5 +19,6 @@ class PreprocessingConfig:
 class ClusterizationConfig:
     data_annotation_path: str
     algorithms: list
+    model_path: str
     info_path: str
 

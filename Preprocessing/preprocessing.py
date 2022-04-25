@@ -1,6 +1,7 @@
 from config.config_classes import PreprocessingConfig
 from Utils.utils import get_config_data
 from Dataset.dataset import MultySpectralDataset
+from info import Info
 
 
 import os
@@ -77,7 +78,8 @@ def get_data_from_xml(preprocessing_config) -> pd.DataFrame:
 
 def get_dataset_info(multy_spectral_data: pd.DataFrame, info_path: str):
     multy_spectral_dataset = MultySpectralDataset(multy_spectral_data, info_path)
-    multy_spectral_dataset.get_dataset_info_in_charts()
+    info = Info(multy_spectral_dataset)
+    info.get_dataset_info_in_charts()
 
 
 def start_preprocessing(cfg_path: str, get_info: bool):

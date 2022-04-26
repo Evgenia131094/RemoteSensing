@@ -1,7 +1,7 @@
-/Dataset/Data/
-/Dataset/
-/config/clusterization_config.yaml
-/config/preprocessing_config.yaml
-/config/start_config.yaml
-/Training/Clusterization/Info/
-/Training/Clusterization/Models/
+/components/Dataset/Data/
+/components/Dataset/
+/components/config/clusterization_config.yaml
+/components/config/preprocessing_config.yaml
+/components/config/start_config.yaml
+/components/Training/Clusterization/Info/
+/components/Training/Clusterization/Models/

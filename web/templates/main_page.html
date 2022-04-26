@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="../static/css/select.css">
+{% endblock %}
+{% block title %} ArtInEco {% endblock %}
+
+
+{% block content %}
+
+ArtInEco - Artificial Intelligence Eco Control System, разработанная, чтобы детектировать любые отклонения в экосистеме.
+
+Выберите один из режимов работы
+<form>
+    <div class="mode_select">
+
+        <select name="Режим">
+            <option value="preprocessing" selected>Предобработка</option>
+            <option value="classification">Классификация</option>
+            <option value="clusterisation">Кластеризация</option>
+        </select>
+        <input type="submit" value="Запустить">
+    </div>
+</form>
+
+{%if selected_mode %}
+<h1>{{mode}}</h1>
+
+{% endif %}
+
+{% endblock %}

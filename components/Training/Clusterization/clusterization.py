@@ -6,12 +6,14 @@ import seaborn as sns
 
 from tqdm import tqdm
 
-from config.config_classes import ClusterizationConfig
+import umap
 
-from Dataset.dataset import MultySpectralDataset
-from Training.training import Training
-from Training.Clusterization.constants import CLUSTERING_ALGORITHMS
-from Utils.utils import get_config_data, save_chart, create_save_dir
+from components.config.config_classes import ClusterizationConfig
+
+from components.Dataset.dataset import MultySpectralDataset
+from components.Training.training import Training
+from components.Training.Clusterization.constants import CLUSTERING_ALGORITHMS
+from components.Utils.utils import get_config_data, save_chart, create_save_dir
 
 
 class Clusterization(Training):
@@ -33,9 +35,19 @@ class Clusterization(Training):
 
             if get_info:
                 save_dir = create_save_dir(self.config.info_path, f"{experiment_start_time}_{clustering_algorithm}")
-                self.get_scatterplot(labels=labels, save_dir=save_dir)
+                # self.get_scatterplot(labels=labels, save_dir=save_dir)
+                self.get_umap_scatter(labels=labels, save_dir=save_dir)
 
-    def get_scatterplot(self, labels, save_dir: str):
+    def get_umap_scatter(self, save_dir: str, labels, palette: str = 'viridis'):
+        embedding = umap.UMAP(n_neighbors=15, min_dist=0).fit_transform(self.dataset.multy_spectral_data)
+        save_chart(method=sns.scatterplot,
+                   save_path=os.path.join(save_dir, f'scatterplot_0_1.png'), x=embedding[:, 0],
+                   y=embedding[:, 1],
+                   hue='Clusters',
+                   data=self.dataset.multy_spectral_data.assign(Clusters=labels),
+                   palette=palette)
+
+    def get_scatterplot(self, labels, save_dir: str, palette: str = 'viridis'):
         print("Start scatterplot ...")
         processed_cols = set()
         for column_1 in self.dataset.columns:
@@ -46,7 +58,7 @@ class Clusterization(Training):
                            x=column_1, y=column_2,
                            hue='Clusters',
                            data=self.dataset.multy_spectral_data.assign(Clusters=labels),
-                           palette='viridis')
+                           palette=palette)
 
             processed_cols.add(column_1)
 

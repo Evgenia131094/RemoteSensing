@@ -1,7 +1,7 @@
 import os
 import pickle
 import inspect
-from Dataset.dataset import MultySpectralDataset
+from components.Dataset.dataset import MultySpectralDataset
 
 
 class Training:

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% block head %} {% endblock %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/css/base_style.css">
+    <link rel="stylesheet" href="../static/css/menu.css">
+
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+
+
+<div class="header">
+    <div class="info">
+        <h4><a href="#category">remote sensing IE project</a></h4>
+        <h1 class="logo">ArtInEco</h1>
+        <div class="meta">
+            By Eugeniia Zharikova on November 30, 2019
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <nav class="dropdownmenu">
+        <ul class="main_menu">
+            <li><a href="/">Проект</a></li>
+            <li><a href="/dataset">Датасет</a></li>
+            <li><a href="/training">Обучение</a></li>
+            <li><a href="/author">Об авторах</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</div>
+
+</body>
+</html>

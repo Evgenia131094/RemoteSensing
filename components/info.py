@@ -4,8 +4,9 @@ import seaborn as sns
 
 
 class Info:
-    def __init__(self, data):
+    def __init__(self, data, info_path):
         self.data = data
+        self.info_path = info_path
 
     def get_dataset_info_in_charts(self):
         print("Get correlation heatmap")
@@ -18,20 +19,20 @@ class Info:
     def get_correlation_heatmap(self, method: str = 'pearson'):  #'penguins'
         corr = self.data.multy_spectral_data.corr(method=method)
         save_chart(method=sns.heatmap,
-                   save_path=os.path.join(self.data.info_path, f'correlations_{method}.png'),
+                   save_path=os.path.join(self.info_path, f'correlations_{method}.png'),
                    data=corr,
                    annot=True)
 
     def get_histograms(self):
         for column in self.data.multy_spectral_data.columns:
             save_chart(method=sns.kdeplot,
-                       save_path=os.path.join(self.data.info_path, f'histogram_{column}.png'),
+                       save_path=os.path.join(self.info_path, f'histogram_{column}.png'),
                        x=self.data.multy_spectral_data[column],
                        shade=True)
 
     def get_pair_plots(self, hue: str = "Green"):
         save_chart(method=sns.pairplot,
-                   save_path=os.path.join(self.data.info_path, f'pairplot.png'),
+                   save_path=os.path.join(self.info_path, f'pairplot.png'),
                    data=self.data.multy_spectral_data,
                    hue=hue
                    )

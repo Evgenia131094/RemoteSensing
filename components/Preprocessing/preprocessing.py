@@ -1,7 +1,7 @@
-from config.config_classes import PreprocessingConfig
-from Utils.utils import get_config_data
-from Dataset.dataset import MultySpectralDataset
-from info import Info
+from components.config.config_classes import PreprocessingConfig
+from components.Utils.utils import get_config_data
+from components.Dataset.dataset import MultySpectralDataset
+from components.info import Info
 
 
 import os
@@ -41,14 +41,16 @@ def get_dataframe_from_image_for_cur_object(cur_object, images, folder) -> pd.Da
                          for j in range(len(colours[0]))])
 
 
-def generate_dataset(preprocessing_config) -> pd.DataFrame:
+def generate_dataset(preprocessing_config) -> (pd.DataFrame, str):
     multyspectral_data, list_of_remained_folders = get_converted_multyspectral_data_and_list_of_remained_folders(
         preprocessing_config.path,
         preprocessing_config.annotation)
 
     print("Converting xml to pandas dataframe...")
     for folder in tqdm(list_of_remained_folders):
+
         cur_path = os.path.join(preprocessing_config.path, folder)
+        folder = folder.replace(" ", "")
         xml = objectify.parse(os.path.join(cur_path, folder + ".xml"))
         root = xml.getroot()
 
@@ -68,26 +70,30 @@ def generate_dataset(preprocessing_config) -> pd.DataFrame:
     print(f"Saving {preprocessing_config.annotation} with {len(multyspectral_data)} samples")
     saving_path = os.path.join(preprocessing_config.path, preprocessing_config.annotation)
     multyspectral_data.to_csv(saving_path, index=False)
-    return multyspectral_data
+    return multyspectral_data, saving_path
 
 
-def get_data_from_xml(preprocessing_config) -> pd.DataFrame:
+def get_data_from_xml(preprocessing_config) -> (pd.DataFrame, str):
     print("Getting dataframe from xml...")
     return generate_dataset(preprocessing_config)
 
 
-def get_dataset_info(multy_spectral_data: pd.DataFrame, info_path: str):
-    multy_spectral_dataset = MultySpectralDataset(multy_spectral_data, info_path)
-    info = Info(multy_spectral_dataset)
+def get_dataset_info(multy_spectral_data: pd.DataFrame, info_path):
+    multy_spectral_dataset = MultySpectralDataset(multy_spectral_data,
+                                                  forbidden_features=["class", "image"],
+                                                  target="class")
+    info = Info(multy_spectral_dataset, info_path)
     info.get_dataset_info_in_charts()
 
 
 def start_preprocessing(cfg_path: str, get_info: bool):
     preprocessing_config = PreprocessingConfig(**get_config_data(cfg_path))
     print("Start preprocessing...")
-    multy_spectral_data = get_data_from_xml(preprocessing_config)
-
+    multy_spectral_data, saving_path = get_data_from_xml(preprocessing_config)
+    info_path = ""
     if get_info:
-        print("Getting dataset info...")
-        get_dataset_info(multy_spectral_data, preprocessing_config.info_path)
+        info_path = preprocessing_config.info_path
+        # info_path = os.path.join(info_path, "*.png")
+        get_dataset_info(multy_spectral_data, info_path)
 
+    return saving_path, info_path

@@ -5,3 +5,6 @@
 /components/config/start_config.yaml
 /components/Training/Clusterization/Info/
 /components/Training/Clusterization/Models/
+/components/config/classification_config.yaml
+/components/Training/Classification/Info/
+/components/Training/Classification/Models/

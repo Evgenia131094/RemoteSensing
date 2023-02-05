@@ -16,7 +16,7 @@ class PreprocessingConfig:
 
 
 @dataclass
-class ClusterizationConfig:
+class TrainConfig:
     data_annotation_path: str
     algorithms: list
     model_path: str

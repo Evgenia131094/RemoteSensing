@@ -18,4 +18,4 @@ def create_save_dir(dir_path: str, method: str):
 def save_chart(method, save_path: str, **kwargs):
     figure, _ = plt.subplots(figsize=(10, 8))
     method(**kwargs)
-    figure.savefig(save_path, dpi=800)
+    plt.savefig(save_path, dpi=800)

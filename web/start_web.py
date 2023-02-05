@@ -1,18 +1,22 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
 from components.start import start_action
-
+from glob import glob
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['post', "get"])
 def main_page():
-    return render_template('main_page.html')
-
-
-@app.route('/mode/<mode>')
-def main_mode_page(mode):
-    saving_path, info_path = start_action(mode=mode)
-    return render_template('main_page.html', selected_mode=True, mode=mode, saving_path=saving_path, info_path=info_path)
+    post = {"selected_mode": False}
+    if request.method =='POST':
+        mode = request.form['mode']
+        saving_path, info_path = start_action(mode)
+        post = {"selected_mode": True,
+                "mode": mode,
+                "saving_path": saving_path,
+                "images": []}
+        if info_path != "":
+            post["images"] = glob(info_path)
+    return render_template('main_page.html', post=post)
 
 
 @app.route('/author')

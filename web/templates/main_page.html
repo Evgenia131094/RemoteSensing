@@ -10,10 +10,10 @@
 ArtInEco - Artificial Intelligence Eco Control System, разработанная, чтобы детектировать любые отклонения в экосистеме.
 
 Выберите один из режимов работы
-<form>
+<form action="" method="post">
     <div class="mode_select">
 
-        <select name="Режим">
+        <select name="mode">
             <option value="preprocessing" selected>Предобработка</option>
             <option value="classification">Классификация</option>
             <option value="clusterisation">Кластеризация</option>
@@ -22,7 +22,7 @@ ArtInEco - Artificial Intelligence Eco Control System, разработанна�
     </div>
 </form>
 
-{%if selected_mode %}
+{%if post[selected_mode] %}
 <h1>{{mode}}</h1>
 
 {% endif %}

@@ -48,7 +48,9 @@ def generate_dataset(preprocessing_config) -> (pd.DataFrame, str):
 
     print("Converting xml to pandas dataframe...")
     for folder in tqdm(list_of_remained_folders):
+
         cur_path = os.path.join(preprocessing_config.path, folder)
+        folder = folder.replace(" ", "")
         xml = objectify.parse(os.path.join(cur_path, folder + ".xml"))
         root = xml.getroot()
 
@@ -89,9 +91,9 @@ def start_preprocessing(cfg_path: str, get_info: bool):
     print("Start preprocessing...")
     multy_spectral_data, saving_path = get_data_from_xml(preprocessing_config)
     info_path = ""
-    # if get_info:
-    #     info_path = preprocessing_config.info_path
-    #     print("Getting dataset info...")
-    #     get_dataset_info(multy_spectral_data, info_path)
+    if get_info:
+        info_path = preprocessing_config.info_path
+        # info_path = os.path.join(info_path, "*.png")
+        get_dataset_info(multy_spectral_data, info_path)
 
     return saving_path, info_path

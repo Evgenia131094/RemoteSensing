@@ -126,6 +126,10 @@ class Classification(Training):
             explainer = shap.TreeExplainer(model)
             shap_values = explainer.shap_values(x)
 
+            if shap_values.min() == shap_values.max():
+                print(f"bad_data for {save_dir}")
+                return
+
             save_chart(
                 method=shap.summary_plot,
                 save_path=os.path.join(save_dir, f'shap.png'),

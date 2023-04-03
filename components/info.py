@@ -1,9 +1,12 @@
-from Utils.utils import save_chart
 import os
+
+import pandas as pd
 import seaborn as sns
+from Utils.utils import save_chart
 
 
 class Info:
+
     def __init__(self, data, info_path):
         self.data = data
         self.info_path = info_path
@@ -16,17 +19,21 @@ class Info:
         print("Get pair plots...")
         self.get_pair_plots()
 
-    def get_correlation_heatmap(self, method: str = 'pearson'):  #'penguins'
-        corr = self.data.multy_spectral_data.corr(method=method)
+    def get_correlation_heatmap(self, method: str = 'pearson'):  # 'penguins'
+        df = self.data.multy_spectral_data.copy()
+        df["target"] = self.data.target_data.astype(int)
+        corr = df.dropna().corr(method=method)
         save_chart(method=sns.heatmap,
-                   save_path=os.path.join(self.info_path, f'correlations_{method}.png'),
+                   save_path=os.path.join(self.info_path,
+                                          f'correlations_{method}.png'),
                    data=corr,
                    annot=True)
 
     def get_histograms(self):
         for column in self.data.multy_spectral_data.columns:
             save_chart(method=sns.kdeplot,
-                       save_path=os.path.join(self.info_path, f'histogram_{column}.png'),
+                       save_path=os.path.join(self.info_path,
+                                              f'histogram_{column}.png'),
                        x=self.data.multy_spectral_data[column],
                        shade=True)
 
@@ -34,5 +41,4 @@ class Info:
         save_chart(method=sns.pairplot,
                    save_path=os.path.join(self.info_path, f'pairplot.png'),
                    data=self.data.multy_spectral_data,
-                   hue=hue
-                   )
+                   hue=hue)

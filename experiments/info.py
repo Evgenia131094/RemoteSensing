@@ -30,7 +30,9 @@ class Info:
                    annot=True)
 
     def get_histograms(self):
-        for column in self.data.multy_spectral_data.columns:
+        df = self.data.multy_spectral_data.copy()
+        df["target"] = self.data.target_data.astype(int)
+        for column in df:
             save_chart(method=sns.kdeplot,
                        save_path=os.path.join(self.info_path,
                                               f'histogram_{column}.png'),
@@ -38,7 +40,10 @@ class Info:
                        shade=True)
 
     def get_pair_plots(self, hue: str = "Green"):
+        df = self.data.multy_spectral_data.copy()
+        df["target"] = self.data.target_data.astype(int)
+
         save_chart(method=sns.pairplot,
                    save_path=os.path.join(self.info_path, f'pairplot.png'),
-                   data=self.data.multy_spectral_data,
+                   data=df,
                    hue=hue)

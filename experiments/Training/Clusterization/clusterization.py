@@ -6,11 +6,11 @@ import seaborn as sns
 import umap
 from tqdm import tqdm
 
-from components.config.config_classes import TrainConfig
-from components.Dataset.dataset import MultySpectralDataset
+from experiments.config.config_classes import TrainConfig
+from experiments.Dataset.dataset import MultySpectralDataset
 from Training.constants import CLUSTERING_ALGORITHMS
-from components.Training.training import Training
-from components.Utils.utils import create_save_dir, get_config_data, save_chart
+from experiments.Training.training import Training
+from experiments.Utils.utils import create_save_dir, get_config_data, save_chart
 
 
 class Clusterization(Training):

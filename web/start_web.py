@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
-from components.start import start_action
+from experiments.start import start_action
 from glob import glob
 app = Flask(__name__)
 

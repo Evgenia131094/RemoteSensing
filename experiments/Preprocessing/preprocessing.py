@@ -1,7 +1,7 @@
-from components.config.config_classes import PreprocessingConfig
-from components.Utils.utils import get_config_data
-from components.Dataset.dataset import MultySpectralDataset
-from components.info import Info
+from experiments.config.config_classes import PreprocessingConfig
+from experiments.Utils.utils import get_config_data
+from experiments.Dataset.dataset import MultySpectralDataset
+from experiments.info import Info
 
 
 import os

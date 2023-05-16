@@ -4,8 +4,8 @@ from Preprocessing.preprocessing import start_preprocessing
 from Training.Classification.classification import start_classification
 from Training.Clusterization.clusterization import start_clusterization
 
-from components.config.config_classes import StartConfig
-from components.Utils.utils import get_config_data
+from experiments.config.config_classes import StartConfig
+from experiments.Utils.utils import get_config_data
 
 CFG_PATH = os.environ["CFG_PATH"]
 CFG_START_NAME = os.environ["CFG_START_NAME"]

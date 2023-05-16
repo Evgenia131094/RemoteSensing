@@ -8,10 +8,10 @@ from sklearn.model_selection import ShuffleSplit, train_test_split
 from tqdm import tqdm
 from Training.constants import CLASSIFICATION_ALGORITHMS, TREE_ALGORITHMS
 
-from components.config.config_classes import TrainConfig
-from components.Dataset.dataset import MultySpectralDataset
-from components.Training.training import Training
-from components.Utils.utils import create_save_dir, get_config_data, save_chart
+from experiments.config.config_classes import TrainConfig
+from experiments.Dataset.dataset import MultySpectralDataset
+from experiments.Training.training import Training
+from experiments.Utils.utils import create_save_dir, get_config_data, save_chart
 
 
 class Classification(Training):
